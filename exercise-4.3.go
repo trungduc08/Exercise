@@ -1,13 +1,11 @@
 package main
 
-import "fmt"
+// func main() {
+// 	s := [10]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+// 	ReversePointer(&s)
+// 	fmt.Println(s)
 
-func main() {
-	s := [10]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
-	ReversePointer(&s)
-	fmt.Println(s)
-
-}
+// }
 func ReversePointer(s *[10]int) {
 	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
 		(*s)[i], (*s)[j] = (*s)[j], (*s)[i]

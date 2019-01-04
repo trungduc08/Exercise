@@ -1,9 +1,7 @@
 package main
 
 import (
-	"crypto/sha256"
 	"fmt"
-	"strconv"
 )
 
 var pc [256]byte
@@ -32,25 +30,25 @@ func CountBit(x [32]byte) int {
 	return sum
 }
 
-func main() {
-	count := 0
-	c1 := sha256.Sum256([]byte("A"))
-	c2 := sha256.Sum256([]byte("X"))
-	src1 := []string{}
-	src2 := []string{}
+// func main() {
+// 	count := 0
+// 	c1 := sha256.Sum256([]byte("A"))
+// 	c2 := sha256.Sum256([]byte("X"))
+// 	src1 := []string{}
+// 	src2 := []string{}
 
-	for i, v := range c1 {
-		src1 = append(src1, fmt.Sprintf("%v", strconv.FormatUint(uint64(v), 2)))
-		src2 = append(src2, fmt.Sprintf("%v", strconv.FormatUint(uint64(c2[i]), 2)))
-	}
-	// fmt.Println(src1)
-	// fmt.Println(src2)
-	for i, v := range src1 {
-		count = count + CountDifferent(fmt.Sprintf("%s", v), fmt.Sprintf("%s", src2[i]))
-	}
-	fmt.Println(count)
+// 	for i, v := range c1 {
+// 		src1 = append(src1, fmt.Sprintf("%v", strconv.FormatUint(uint64(v), 2)))
+// 		src2 = append(src2, fmt.Sprintf("%v", strconv.FormatUint(uint64(c2[i]), 2)))
+// 	}
+// 	// fmt.Println(src1)
+// 	// fmt.Println(src2)
+// 	for i, v := range src1 {
+// 		count = count + CountDifferent(fmt.Sprintf("%s", v), fmt.Sprintf("%s", src2[i]))
+// 	}
+// 	fmt.Println(count)
 
-}
+// }
 func CountDifferent(a, b string) int {
 	count := 0
 	if len(a) == len(b) {
