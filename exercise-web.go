@@ -1,7 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"log"
+	"os"
 )
 
 type Fetcher interface {
@@ -13,12 +16,19 @@ type Fetcher interface {
 // Crawl uses fetcher to recursively crawl
 // pages starting with url, to a maximum of depth.
 func Crawl(url string, depth int, fetcher Fetcher) {
+
 	quit := make(chan bool)
 	visitedUrls := map[string]bool{url: false}
 	go doCrawl(url, depth, fetcher, quit, visitedUrls)
 	<-quit
 }
+
+var mapResult map[string]string
+
+var src []string
+
 func doCrawl(url string, depth int, fetcher Fetcher, quit chan bool, visitedUrls map[string]bool) {
+
 	if depth < 0 {
 		quit <- true
 		return
@@ -33,16 +43,20 @@ func doCrawl(url string, depth int, fetcher Fetcher, quit chan bool, visitedUrls
 	body, urls, err := fetcher.Fetch(url)
 	if err != nil {
 		fmt.Println(err)
+		src = append(src, fmt.Sprintf("%v", err))
 		quit <- true
 		return
 	}
-	fmt.Printf("found %v %v\n", url, body)
+	fmt.Printf("found: %v %v\n", url, body)
+	src = append(src, fmt.Sprintf("found: %v %v", url, body))
 	childrenQuit := make(chan bool)
 	for _, u := range urls {
 		go doCrawl(u, depth-1, fetcher, childrenQuit, visitedUrls)
 		<-childrenQuit
 	}
+
 	quit <- true
+
 }
 
 // fakeFetcher is Fetcher that returns canned results.
@@ -94,6 +108,42 @@ var fetcher = fakeFetcher{
 	},
 }
 
+func WritingResultToFile() {
+	Crawl("https://golang.org/", 4, fetcher)
+	file, err := os.Create("result.txt")
+	if err != nil {
+		fmt.Println("can not opne file")
+	}
+	defer file.Close()
+	for _, v := range src {
+		fmt.Fprintln(file, v)
+	}
+}
+func ReadFile() []string {
+	s := []string{}
+	file, err := os.Open("result.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		s = append(s, fmt.Sprintf("%v", scanner.Text()))
+		// fmt.Println(scanner.Text())
+	}
+
+	if err := scanner.Err(); err != nil {
+		log.Fatal(err)
+	}
+	return s
+
+}
+
 // func main() {
-// 	Crawl("https://golang.org/", 4, fetcher)
+
+// 	s := ReadFile()
+// 	fmt.Println(s[0])
+// 	// fmt.Println(src[0])
+// 	// fmt.Println(src[1])
 // }
