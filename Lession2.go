@@ -162,3 +162,11 @@ func alphabet(m *sync.Mutex) {
 // 		fmt.Println(value)
 // 	}
 // }
+type Currency int
+
+const (
+	USD Currency = iota
+	EUR
+	GBP
+	RMB
+)
