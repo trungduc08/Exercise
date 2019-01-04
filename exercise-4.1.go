@@ -31,6 +31,7 @@ func CountBit(x [32]byte) int {
 	}
 	return sum
 }
+
 func main() {
 	count := 0
 	c1 := sha256.Sum256([]byte("A"))
