@@ -1,14 +1,9 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"io"
-	"os"
 	"sync"
 	"time"
-	"unicode"
-	"unicode/utf8"
 )
 
 type I interface {
@@ -176,71 +171,71 @@ const (
 	RMB
 )
 
-func main() {
-	// seen := make(map[string]bool)
-	// input := bufio.NewScanner(os.Stdin)
-	// for input.Scan() {
-	// 	line := input.Text()
-	// 	if !seen[line] {
-	// 		seen[line] = true
-	// 		fmt.Println(line)
-	// 	}
-	// }
-	// if err := input.Err(); err != nil {
-	// 	fmt.Fprintf(os.Stderr, "dedup: %v\n", err)
-	// 	os.Exit(1)
-	// }
-	// m = map[string]int{
-	// 	"duc":  0,
-	// 	"phuc": 1,
-	// }
-	// s := []string{}
-	// for i, _ := range m {
-	// 	s = append(s, i)
-	// }
+// func main() {
+// 	// seen := make(map[string]bool)
+// 	// input := bufio.NewScanner(os.Stdin)
+// 	// for input.Scan() {
+// 	// 	line := input.Text()
+// 	// 	if !seen[line] {
+// 	// 		seen[line] = true
+// 	// 		fmt.Println(line)
+// 	// 	}
+// 	// }
+// 	// if err := input.Err(); err != nil {
+// 	// 	fmt.Fprintf(os.Stderr, "dedup: %v\n", err)
+// 	// 	os.Exit(1)
+// 	// }
+// 	// m = map[string]int{
+// 	// 	"duc":  0,
+// 	// 	"phuc": 1,
+// 	// }
+// 	// s := []string{}
+// 	// for i, _ := range m {
+// 	// 	s = append(s, i)
+// 	// }
 
-	// fmt.Println(k(s))
-	// Add1(s)
-	// fmt.Println(Count(s))
+// 	// fmt.Println(k(s))
+// 	// Add1(s)
+// 	// fmt.Println(Count(s))
 
-	counts := make(map[rune]int)
-	// counts of Unicode characters
-	var utflen [utf8.UTFMax + 1]int // count of lengths of UTF-8 encodings
-	invalid := 0
-	// count of invalid UTF-8 characters
-	in := bufio.NewReader(os.Stdin)
+// 	counts := make(map[rune]int)
+// 	// counts of Unicode characters
+// 	var utflen [utf8.UTFMax + 1]int // count of lengths of UTF-8 encodings
+// 	invalid := 0
+// 	// count of invalid UTF-8 characters
+// 	in := bufio.NewReader(os.Stdin)
 
-	for {
-		r, n, err := in.ReadRune() // returns rune, nbytes, error
-		if err == io.EOF {
-			break
-		}
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "charcount: %v\n", err)
-			os.Exit(1)
-		}
-		if r == unicode.ReplacementChar && n == 1 {
-			invalid++
-			continue
-		}
-		counts[r]++
-		utflen[n]++
-	}
-	fmt.Printf("rune\tcount\n")
-	for c, n := range counts {
-		fmt.Printf("%q\t%d\n", c, n)
-	}
-	fmt.Print("\nlen\tcount\n")
-	for i, n := range utflen {
-		if i > 0 {
-			fmt.Printf("%d\t%d\n", i, n)
-		}
-	}
-	if invalid > 0 {
-		fmt.Printf("\n%d invalid UTF-8 characters\n", invalid)
-	}
+// 	for {
+// 		r, n, err := in.ReadRune() // returns rune, nbytes, error
+// 		if err == io.EOF {
+// 			break
+// 		}
+// 		if err != nil {
+// 			fmt.Fprintf(os.Stderr, "charcount: %v\n", err)
+// 			os.Exit(1)
+// 		}
+// 		if r == unicode.ReplacementChar && n == 1 {
+// 			invalid++
+// 			continue
+// 		}
+// 		counts[r]++
+// 		utflen[n]++
+// 	}
+// 	fmt.Printf("rune\tcount\n")
+// 	for c, n := range counts {
+// 		fmt.Printf("%q\t%d\n", c, n)
+// 	}
+// 	fmt.Print("\nlen\tcount\n")
+// 	for i, n := range utflen {
+// 		if i > 0 {
+// 			fmt.Printf("%d\t%d\n", i, n)
+// 		}
+// 	}
+// 	if invalid > 0 {
+// 		fmt.Printf("\n%d invalid UTF-8 characters\n", invalid)
+// 	}
 
-}
+// }
 
 var m = make(map[string]int)
 
@@ -252,4 +247,55 @@ func Add1(list []string) {
 }
 func Count(list []string) int {
 	return m[k(list)]
+}
+
+type Employee struct {
+	id      int
+	name    string
+	address string
+
+	position  string
+	salary    int
+	managerId int
+}
+
+var v []Employee
+
+// func main() {
+// 	v = []Employee{
+// 		Employee{
+// 			id:        0,
+// 			name:      "duc",
+// 			address:   "hn",
+// 			position:  "center",
+// 			salary:    12,
+// 			managerId: 13,
+// 		},
+// 		Employee{
+// 			id:        1,
+// 			name:      "phuc",
+// 			address:   "hn",
+// 			position:  "left",
+// 			salary:    20,
+// 			managerId: 25,
+// 		},
+// 	}
+// 	fmt.Println(EmployeeByID(12))
+
+// }
+
+func EmployeeByID(id int) *Employee {
+	temp := -1
+
+	for _, val := range v {
+		if val.id == id {
+			temp = id
+			break
+		}
+
+	}
+	if temp < 0 {
+		return nil
+	}
+	return &(v[temp])
 }

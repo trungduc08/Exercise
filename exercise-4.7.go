@@ -2,14 +2,14 @@ package main
 
 import "fmt"
 
-func main() {
-	s := "abcxyz"
-	input := ConvertStringToArray(s)
-	ReverseString(input)
-	output := ConvertArrayToString(input)
-	fmt.Println(output)
+// func main() {
+// 	s := "abcxyz"
+// 	input := ConvertStringToArray(s)
+// 	ReverseString(input)
+// 	output := ConvertArrayToString(input)
+// 	fmt.Println(output)
 
-}
+// }
 func ConvertStringToArray(s string) []string {
 	result := []string{}
 	for _, v := range s {
