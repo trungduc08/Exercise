@@ -1,31 +1,29 @@
 package main
 
-import "fmt"
-
-func main() {
-	src := []string{
-		"Hello",
-		"Hello",
-		"Word",
-		"Lang",
-		"Go",
-		"Go",
-		"Go",
-		"Go",
-		"Lasst",
-	}
-	result := map[int]Result{}
-	result = RemoveEliminateAdjacentDuplicate(src)
-	for i, _ := range result {
-		for j := result[i].index; j < result[i].index+result[i].count; j++ {
-			src[j] = ""
-		}
-	}
-	lastResult := Nonempty(src)
-	for _, v := range lastResult {
-		fmt.Println(v)
-	}
-}
+// func main() {
+// 	src := []string{
+// 		"Hello",
+// 		"Hello",
+// 		"Word",
+// 		"Lang",
+// 		"Go",
+// 		"Go",
+// 		"Go",
+// 		"Go",
+// 		"Lasst",
+// 	}
+// 	result := map[int]Result{}
+// 	result = RemoveEliminateAdjacentDuplicate(src)
+// 	for i, _ := range result {
+// 		for j := result[i].index; j < result[i].index+result[i].count; j++ {
+// 			src[j] = ""
+// 		}
+// 	}
+// 	lastResult := Nonempty(src)
+// 	for _, v := range lastResult {
+// 		fmt.Println(v)
+// 	}
+// }
 
 type Result struct {
 	src   string
