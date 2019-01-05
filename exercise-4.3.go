@@ -33,16 +33,7 @@ func AppendInt(x []int, y int) []int {
 	z[len(x)] = y
 	return z
 }
-func nonempty(strings []string) []string {
-	i := 0
-	for _, s := range strings {
-		if s != "" {
-			strings[i] = s
-			i++
-		}
-	}
-	return strings[:i]
-}
+
 func nonempty2(strings []string) []string {
 	out := strings[:0] // zero-length slice of original
 	for _, s := range strings {
