@@ -261,29 +261,6 @@ type Employee struct {
 
 var v []Employee
 
-// func main() {
-// 	v = []Employee{
-// 		Employee{
-// 			id:        0,
-// 			name:      "duc",
-// 			address:   "hn",
-// 			position:  "center",
-// 			salary:    12,
-// 			managerId: 13,
-// 		},
-// 		Employee{
-// 			id:        1,
-// 			name:      "phuc",
-// 			address:   "hn",
-// 			position:  "left",
-// 			salary:    20,
-// 			managerId: 25,
-// 		},
-// 	}
-// 	fmt.Println(EmployeeByID(12))
-
-// }
-
 func EmployeeByID(id int) *Employee {
 	temp := -1
 
@@ -310,4 +287,30 @@ type Circle struct {
 type Wheel struct {
 	Circle
 	spokes int
+}
+
+func appendInt(x []int, y int) []int {
+	var z []int
+	zlen := len(x) + 1
+	if zlen <= cap(x) {
+		// There is room to grow. Extend the slice.
+		z = x[:zlen]
+	} else {
+		// There is insufficient space. Allocate a new array.
+		// Grow by doubling, for amortized linear complexity.
+		zcap := zlen
+		if zcap < 2*len(x) {
+			zcap = 2 * len(x)
+		}
+		z = make([]int, zlen, zcap)
+		copy(z, x) // a built-in function; see text
+	}
+	z[len(x)] = y
+	return z
+}
+func main() {
+	x := []int{1, 2, 3, 4, 5, 8, 7}
+	copy(x[2:], x[3:])
+
+	fmt.Println(x, x[0], cap(x))
 }
