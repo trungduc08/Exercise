@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"unicode"
 )
 
@@ -11,35 +10,35 @@ type Stored struct {
 	count int
 }
 
-func main() {
-	input := "  trung duc        trung        duc      "
-	output := []rune{}
-	runeSrc := []rune{}
-	for _, v := range input {
-		runeSrc = append(runeSrc, v)
-	}
-	// fmt.Println(runeSrc)
-	lastRune := RemoveSpace(runeSrc)
-	// fmt.Println(lastRune)
-	for i, _ := range lastRune {
-		if i == 0 {
-			for j := lastRune[i].index; j < lastRune[i].index+lastRune[i].count; j++ {
-				runeSrc[j] = 0
-			}
-		} else {
-			for j := lastRune[i].index + 1; j < lastRune[i].index+lastRune[i].count; j++ {
-				runeSrc[j] = 0
-			}
-		}
-	}
-	for _, v := range runeSrc {
-		if v != 0 {
-			output = append(output, v)
-		}
+// func main() {
+// 	input := "  trung duc        trung        duc      "
+// 	output := []rune{}
+// 	runeSrc := []rune{}
+// 	for _, v := range input {
+// 		runeSrc = append(runeSrc, v)
+// 	}
+// 	// fmt.Println(runeSrc)
+// 	lastRune := RemoveSpace(runeSrc)
+// 	// fmt.Println(lastRune)
+// 	for i, _ := range lastRune {
+// 		if i == 0 {
+// 			for j := lastRune[i].index; j < lastRune[i].index+lastRune[i].count; j++ {
+// 				runeSrc[j] = 0
+// 			}
+// 		} else {
+// 			for j := lastRune[i].index + 1; j < lastRune[i].index+lastRune[i].count; j++ {
+// 				runeSrc[j] = 0
+// 			}
+// 		}
+// 	}
+// 	for _, v := range runeSrc {
+// 		if v != 0 {
+// 			output = append(output, v)
+// 		}
 
-	}
-	fmt.Println(string(output))
-}
+// 	}
+// 	fmt.Println(string(output))
+// }
 func RemoveSpace(src []rune) map[int]Stored {
 	result := map[int]Stored{}
 	j := 0

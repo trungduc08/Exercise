@@ -63,15 +63,16 @@ func GetAllComic(count int) []*Comic {
 	}
 	return lstComic
 }
-func main() {
-	list := GetAllComic(5)
 
-	var index int
-	fmt.Println("Nhap index")
-	fmt.Scan(&index)
-	SearchOffline(index, list)
+// func main() {
+// 	list := GetAllComic(5)
 
-}
+// 	var index int
+// 	fmt.Println("Nhap index")
+// 	fmt.Scan(&index)
+// 	SearchOffline(index, list)
+
+// }
 func SearchOffline(index int, lst []*Comic) {
 	for i := 0; i < len(lst); i++ {
 		if index == lst[i].Num {

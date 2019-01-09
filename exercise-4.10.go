@@ -3,9 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
-	"os"
 	"time"
 )
 
@@ -29,6 +27,9 @@ type User struct {
 	HTMLURL string `json:"html_url"`
 }
 
+func Say() {
+	fmt.Println("ahihi")
+}
 func SearchIssues(terms []string) (*IssuesSearchResult, error) {
 	// q := url.QueryEscape(strings.Join(terms, "windows"))
 	resp, err := http.Get(IssuesURL + "?q=windows")
@@ -48,40 +49,41 @@ func SearchIssues(terms []string) (*IssuesSearchResult, error) {
 	return &result, nil
 
 }
-func main() {
 
-	now := time.Now()
-	year := now.Year()
-	month := now.Month()
-	result, err := SearchIssues(os.Args[1:])
-	if err != nil {
-		log.Fatal(err)
-	}
-	categories := map[int][]string{}
-	j := 0
-	for i := 0; i < len(result.Items); i++ {
-		if result.Items[i].CreatedAt.Year()-year > 0 {
-			categories[j] = []string{
-				result.Items[i].User.Login,
-				"more than a year old",
-			}
-		} else {
-			if (result).Items[i].CreatedAt.Month()-month > 0 {
-				categories[j] = []string{
-					result.Items[i].User.Login,
-					"less than a year old",
-				}
-			} else {
-				categories[j] = []string{
-					result.Items[i].User.Login,
-					"less than a month old",
-				}
-			}
-		}
-		j++
-	}
-	for i := 0; i < len(categories); i++ {
-		fmt.Printf("%v\t%9.9s:%s\n", i, categories[i][0], categories[i][1])
-	}
+// func main() {
 
-}
+// 	now := time.Now()
+// 	year := now.Year()
+// 	month := now.Month()
+// 	result, err := SearchIssues(os.Args[1:])
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+// 	categories := map[int][]string{}
+// 	j := 0
+// 	for i := 0; i < len(result.Items); i++ {
+// 		if result.Items[i].CreatedAt.Year()-year > 0 {
+// 			categories[j] = []string{
+// 				result.Items[i].User.Login,
+// 				"more than a year old",
+// 			}
+// 		} else {
+// 			if (result).Items[i].CreatedAt.Month()-month > 0 {
+// 				categories[j] = []string{
+// 					result.Items[i].User.Login,
+// 					"less than a year old",
+// 				}
+// 			} else {
+// 				categories[j] = []string{
+// 					result.Items[i].User.Login,
+// 					"less than a month old",
+// 				}
+// 			}
+// 		}
+// 		j++
+// 	}
+// 	for i := 0; i < len(categories); i++ {
+// 		fmt.Printf("%v\t%9.9s:%s\n", i, categories[i][0], categories[i][1])
+// 	}
+
+// }

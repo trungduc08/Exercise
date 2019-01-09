@@ -32,14 +32,15 @@ func SearchMovie() (*Movie, error) {
 	resp.Body.Close()
 	return &result, nil
 }
-func main() {
-	res, err := SearchMovie()
-	if err == nil {
-		fmt.Printf("Title: %s\n", res.Title)
-		fmt.Printf("Poster: %s\n", res.Poster)
-		DownloadPoster(res.Poster, "poster.jpg")
-	}
-}
+
+// func main() {
+// 	res, err := SearchMovie()
+// 	if err == nil {
+// 		fmt.Printf("Title: %s\n", res.Title)
+// 		fmt.Printf("Poster: %s\n", res.Poster)
+// 		DownloadPoster(res.Poster, "poster.jpg")
+// 	}
+// }
 func DownloadPoster(url string, name string) {
 	img, _ := os.Create(name)
 	defer img.Close()
