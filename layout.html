@@ -4,6 +4,7 @@
     <th>RepositoryUrl</th>
     <th>User</th>
     <th>Milestone</th>
+    <th>List of Reports</th>
     </tr>
     {{range .Items}}
     <tr>
@@ -11,6 +12,12 @@
     <td><a href='{{.RepositoryUrl}}'>{{.RepositoryUrl}}</a></td>
     <td><a href='{{.User.HTMLURL}}'>{{.User.Login}}</a></td>
     <td><a href='{{.Milestone}}'></a>{{.Milestone}}</td>
+    
+    <td>
+        {{range .Labels}}
+        <a href='{{.URL}}'>{{.Name}}</a><br>
+        {{end}}
+    </td>
     </tr>
     {{end}}
 </table>

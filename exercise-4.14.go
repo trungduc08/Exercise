@@ -8,7 +8,7 @@ import (
 	"text/template"
 )
 
-const URL = "https://api.github.com/repos/octocat/Hello-World/issues"
+const URL = "https://api.github.com/repos/trungduc08/GoTour/issues"
 
 type IssueGitHubResult struct {
 	Items []*IssueGitHub
@@ -18,16 +18,23 @@ type IssueGitHub struct {
 	RepositoryUrl string `json:"repository_url"`
 	User          *UserGitHub
 	Milestone     string `json:"milestone"`
+	Labels        []*Label
 }
 type UserGitHub struct {
 	Login   string `json:"login"`
 	HTMLURL string `json:"html_url"`
 }
+type Label struct {
+	URL  string `json:"url"`
+	Name string `json:"name"`
+}
 
 var result *IssueGitHubResult
 var issueListTemplate *template.Template
+var a [4]int
 
 func init() {
+
 	var err error
 	result, err = GetIssues()
 
@@ -43,7 +50,9 @@ func issueListHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 func main() {
-
+	for _, v := range result.Items {
+		fmt.Printf("%s\n", v.Labels)
+	}
 	http.HandleFunc("/", issueListHandler)
 	fmt.Printf("%s\n", issueListHandler)
 	log.Fatal(http.ListenAndServe("localhost:8080", nil))
